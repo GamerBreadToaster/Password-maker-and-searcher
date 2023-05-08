@@ -2,7 +2,6 @@ import os
 
 def password_searcher():
     file_is = False
-    found = False
     path = "passwords.txt"
     found_passwords = ""
     if os.path.isfile(path):
