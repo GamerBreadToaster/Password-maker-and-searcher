@@ -1,6 +1,6 @@
 import os
 import random
-import string
+import string, time
 
 def password_maker():
     num_passwords = 1
@@ -8,6 +8,8 @@ def password_maker():
     password_length = 4
     tags = "empty"
     randommise = True
+    username = "example@mail.com"
+    password = "examplePassword"
     if os.path.isfile(path):
         print("there is an passwords.txt file")
     else:
@@ -20,13 +22,16 @@ def password_maker():
         return password
     while True:
         os.system('cls')
-        print("options:")
-        print("type the number to change them")
-        print(f"1: Length password: {password_length}")
-        print(f"2: amount passwords: {num_passwords}")
-        print(f"3: tags: {tags}")
-        print(f"4: randomise the password: {randommise}")
-        print("5: save and exit")
+        print(f"""options:
+type the number to change them
+1: Length password: {password_length}
+2: amount passwords: {num_passwords}
+3: tags: {tags}
+4: username: {username}
+5: randomise the password: {randommise}""")
+        if randommise == False:
+            print(f"6: password: {password}")
+        print("7: save and exit")
         choose = int(input("choose here: "))
         if choose == 1:
             password_length = int(input("The password length: "))
@@ -35,24 +40,24 @@ def password_maker():
         if choose == 3:
             tags = input("The tag(s) of passwords: ")
         if choose == 4:
-            randommise = int(input("randommise? 0 for no, 1 for yes: "))
-            if randommise == 0:
+            username = input("enter the username or email for the password: ")
+        while choose == 5:
+            if randommise == True:
                 randommise = False
-            elif randommise == 1:
+                break
+            if randommise == False:
                 randommise = True
-        if choose == 5:
+                break
+        if choose == 7:
             break
-    
-    num_passwords = int(input("How many passwords do you want to generate?: "))
-    password_length = int(input("How long do you want the passwords to be?: "))
-    tag = input("what tag(s) does your password have? ")
-    randommise = int(input("Do you want to randomise you password? 1 True, 2 False: "))
-    
+    time_begin = time.time()
     for i in range(num_passwords):
         if randommise == 1:
-            password = generate_password(password_length)
+            password = generate_password(password_length,1)
         elif randommise == 2:
             password = input("input you password here then: ")
         with open(path, "a") as file:
-            file.write(F"tags: {tag}: {password}\n")
-        print(password)
+            file.write(F"tags: {tags} | username: {username} | password: {password}\n")
+    time_end = time.time()
+    print("it took", (time_end - time_begin), "seconds")
+    os.system('pause')
