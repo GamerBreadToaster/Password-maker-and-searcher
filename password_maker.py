@@ -48,14 +48,14 @@ type the number to change them
             if randommise == False:
                 randommise = True
                 break
+        if choose == 6:
+            password = input("put your password here:")
         if choose == 7:
             break
     time_begin = time.time()
     for i in range(num_passwords):
         if randommise == 1:
             password = generate_password(password_length,1)
-        elif randommise == 2:
-            password = input("input you password here then: ")
         with open(path, "a") as file:
             file.write(F"tags: {tags} | username: {username} | password: {password}\n")
     time_end = time.time()
